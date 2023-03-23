@@ -70,8 +70,4 @@ class FragmentB : Fragment() {
         eText2 = view.findViewById(R.id.eNum2)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("Action", action)
-        super.onSaveInstanceState(outState)
-    }
 }
