@@ -14,8 +14,8 @@ import java.text.DecimalFormat
 class FragmentB : Fragment() {
 
     private lateinit var resultBtn: Button
-    private lateinit var eText1: EditText
-    private lateinit var eText2: EditText
+    private lateinit var input1: EditText
+    private lateinit var input2: EditText
     private var action: String? = ""
 
     override fun onCreateView(
@@ -24,16 +24,16 @@ class FragmentB : Fragment() {
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_b, container, false)
-        declaration(view)
+        initViews(view)
 
-        action = arguments?.getString("Action")
+        action = arguments?.getString(FragmentA.action)
         resultBtn.text = action
 
         resultBtn.setOnClickListener {
-            if (eText1.text.toString().trim().isNotEmpty() && eText2.text.toString().trim().isNotEmpty()) {
+            if (input1.text.toString().trim().isNotEmpty() && input2.text.toString().trim().isNotEmpty()) {
 
-                val num1 = eText1.text.toString().toFloat()
-                val num2 = eText2.text.toString().toFloat()
+                val num1 = input1.text.toString().toFloat()
+                val num2 = input2.text.toString().toFloat()
 
                 val ans = when (action) {
                     "Add" -> (num1 + num2)
@@ -42,17 +42,18 @@ class FragmentB : Fragment() {
                     "Division" -> (num1/num2)
                     else -> null!!
                 }
+
                 val format = DecimalFormat("0.#")
-                val t1 = eText1.text.toString()
-                val t2 = eText2.text.toString()
+                val textOne = input1.text.toString()
+                val textTwo = input2.text.toString()
 
                 val bundle = Bundle()
 
-                val resultText = "Your Result is ${format.format(ans)} for inputs $t1 and $t2 with action ${resultBtn.text}"
-                bundle.putString("resultText", resultText)
+                val resultText = "Your Result is ${format.format(ans)} for inputs $textOne and $textTwo with action ${resultBtn.text}"
+                bundle.putString(FragmentA.resultText, resultText)
 
-                val frg = parentFragmentManager.findFragmentByTag("FrgA")
-                frg?.arguments = bundle
+                val fragmentA = parentFragmentManager.findFragmentByTag("FrgA")
+                fragmentA?.arguments = bundle
 
                 parentFragmentManager.popBackStack()
 
@@ -63,11 +64,11 @@ class FragmentB : Fragment() {
         return view
     }
 
-    private fun declaration(view: View) {
+    private fun initViews(view: View) {
 
         resultBtn = view.findViewById(R.id.resBtn)
-        eText1 = view.findViewById(R.id.eNum1)
-        eText2 = view.findViewById(R.id.eNum2)
+        input1 = view.findViewById(R.id.eNum1)
+        input2 = view.findViewById(R.id.eNum2)
     }
 
 }

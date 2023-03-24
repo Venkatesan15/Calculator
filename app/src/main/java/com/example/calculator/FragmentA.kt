@@ -17,15 +17,21 @@ class FragmentA : Fragment(), View.OnClickListener {
     private lateinit var resetBtn: Button
     private lateinit var resultView: TextView
 
+    companion object {
+        const val resultText = "resultText"
+        const val action = "Action"
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(R.layout.fragment_a, container, false)
-        declaration(view)
+        initViews(view)
 
-        if(arguments?.getString("resultText") != null) {
+        if(arguments?.getString(resultText) != null) {
+
             addBtn.visibility = View.GONE
             subBtn.visibility = View.GONE
             mulBtn.visibility = View.GONE
@@ -33,7 +39,7 @@ class FragmentA : Fragment(), View.OnClickListener {
             resetBtn.visibility = View.VISIBLE
             resultView.visibility = View.VISIBLE
 
-            resultView.text = arguments?.getString("resultText")
+            resultView.text = arguments?.getString(resultText)
         }
         addBtn.setOnClickListener(this)
         subBtn.setOnClickListener(this)
@@ -45,27 +51,27 @@ class FragmentA : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        val bundle = Bundle()
+        val actionBundle = Bundle()
 
         when(view) {
             addBtn -> {
-                bundle.putString("Action", addBtn.text.toString())
-                call(bundle)
+                actionBundle.putString(action, addBtn.text.toString())
+                createNewFrgB(actionBundle)
             }
 
             subBtn ->{
-                bundle.putString("Action", subBtn.text.toString())
-                call(bundle)
+                actionBundle.putString(action, subBtn.text.toString())
+                createNewFrgB(actionBundle)
             }
 
             mulBtn -> {
-                bundle.putString("Action", mulBtn.text.toString())
-                call(bundle)
+                actionBundle.putString(action, mulBtn.text.toString())
+                createNewFrgB(actionBundle)
             }
 
             divBtn -> {
-                bundle.putString("Action", divBtn.text.toString())
-                call(bundle)
+                actionBundle.putString(action, divBtn.text.toString())
+                createNewFrgB(actionBundle)
             }
 
             resetBtn -> {
@@ -80,19 +86,19 @@ class FragmentA : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun call(bundle: Bundle) {
+    private fun createNewFrgB(bundle: Bundle) {
 
         val frgB = FragmentB()
         frgB.arguments = bundle
 
         parentFragmentManager.beginTransaction().apply {
             addToBackStack("FrgA")
-            replace(R.id.frame, frgB)
+            replace(R.id.container, frgB)
             commit()
         }
     }
 
-    private fun declaration(view: View) {
+    private fun initViews(view: View) {
 
         addBtn = view.findViewById(R.id.addBtn)
         subBtn = view.findViewById(R.id.subBtn)

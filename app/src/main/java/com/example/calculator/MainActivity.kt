@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private val frgA = FragmentA()
+    private val fragmentA = FragmentA()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         if(savedInstanceState == null) {
             supportFragmentManager.beginTransaction().apply {
-                replace(R.id.frame, frgA, "FrgA")
+                replace(R.id.container, fragmentA, "FrgA")
                 commit()
             }
         }
