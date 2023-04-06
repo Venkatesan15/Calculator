@@ -1,5 +1,6 @@
 package com.example.calculator
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+
 
 class FragmentA : Fragment(), View.OnClickListener {
 
@@ -32,6 +34,7 @@ class FragmentA : Fragment(), View.OnClickListener {
 
         if(arguments?.getString(resultText) != null) {
 
+            println(parentFragmentManager.fragments)
             addBtn.visibility = View.GONE
             subBtn.visibility = View.GONE
             mulBtn.visibility = View.GONE
@@ -86,15 +89,29 @@ class FragmentA : Fragment(), View.OnClickListener {
         }
     }
 
+
+
     private fun createNewFrgB(bundle: Bundle) {
 
         val frgB = FragmentB()
         frgB.arguments = bundle
 
         parentFragmentManager.beginTransaction().apply {
-            addToBackStack("FrgA")
-            replace(R.id.container, frgB)
-            commit()
+
+            if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+
+                replace(R.id.landContainer2, frgB, "FrgB")
+                commit()
+            }
+            else {
+
+                //if(parentFragmentManager.backStackEntryCount == 0) {
+
+
+                replace(R.id.container, frgB, "FrgB")
+                addToBackStack("FrgA")
+                commit()
+            }
         }
     }
 
