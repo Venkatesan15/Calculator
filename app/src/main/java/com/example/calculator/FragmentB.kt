@@ -24,6 +24,7 @@ class FragmentB : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
         val view = inflater.inflate(R.layout.fragment_b, container, false)
         initViews(view)
 
@@ -91,6 +92,9 @@ class FragmentB : Fragment() {
         val bundle = Bundle()
 
         val resultText = "Your Result is ${format.format(ans)} for inputs $textOne and $textTwo with action ${resultBtn.text}"
+
+        MainActivity.results.add(resultText)
+
         bundle.putString(FragmentA.resultText, resultText)
         return bundle
     }

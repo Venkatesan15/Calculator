@@ -9,4 +9,7 @@
     <string name="multiply" translatable="false">Multiply</string>
     <string name="division" translatable="false">Division</string>
     <string name="reset" translatable="false">Reset</string>
+    <string name="history">HISTORY</string>
+    <string name="back">Back</string>
+    <string name="clear">clear</string>
 </resources>
