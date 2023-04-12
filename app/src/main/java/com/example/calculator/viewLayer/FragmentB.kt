@@ -1,4 +1,4 @@
-package com.example.calculator
+package com.example.calculator.viewLayer
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -8,11 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.calculator.R
+import com.example.calculator.domainLayer.ResultsModifier
 import java.text.DecimalFormat
 
 
 class FragmentB : Fragment() {
 
+    private val resultsModifier = ResultsModifier()
     private lateinit var resultBtn: Button
     private lateinit var input1: EditText
     private lateinit var input2: EditText
@@ -93,7 +96,7 @@ class FragmentB : Fragment() {
 
         val resultText = "Your Result is ${format.format(ans)} for inputs $textOne and $textTwo with action ${resultBtn.text}"
 
-        MainActivity.results.add(resultText)
+        resultsModifier.addToResults(resultText)
 
         bundle.putString(FragmentA.resultText, resultText)
         return bundle

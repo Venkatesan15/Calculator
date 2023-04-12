@@ -1,4 +1,4 @@
-package com.example.calculator
+package com.example.calculator.viewLayer
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.calculator.R
 
 class MainActivity : AppCompatActivity(){
 
@@ -16,9 +17,7 @@ class MainActivity : AppCompatActivity(){
 
 
 
-    companion object {
-        val results = mutableListOf<String>()
-    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -91,7 +90,7 @@ class MainActivity : AppCompatActivity(){
 
         val dynamicResultsContainer = findViewById<LinearLayout>(R.id.dynamicResultContainer)
 
-//        if(FragmentA.isShowingDialog) FragmentA.isShowingDialog = false
+        if(FragmentA.isShowingDialog) FragmentA.isShowingDialog = false
         if(landContainerTwo != null) {
             supportFragmentManager.beginTransaction().remove(landContainerTwo).commit()
         }

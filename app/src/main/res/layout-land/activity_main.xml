@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:weightSum="2"
-    tools:context=".MainActivity">
+    tools:context=".viewLayer.MainActivity">
 
     <LinearLayout
         android:id="@+id/container"

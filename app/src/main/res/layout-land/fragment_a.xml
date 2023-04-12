@@ -8,7 +8,7 @@
     android:layout_weight="1"
     android:baselineAligned="false"
     android:padding="10dp"
-    tools:context=".MainActivity">
+    tools:context=".viewLayer.MainActivity">
 
     <Button
         android:id="@+id/addBtn"

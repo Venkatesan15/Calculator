@@ -1,4 +1,4 @@
-package com.example.calculator
+package com.example.calculator.viewLayer
 
 import android.content.DialogInterface
 import android.content.res.Configuration
@@ -14,9 +14,13 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.example.calculator.R
+import com.example.calculator.domainLayer.ResultsModifier
 
 
 class FragmentA : Fragment(), View.OnClickListener {
+
+    private val resultsModifier = ResultsModifier()
 
     private lateinit var addBtn: Button
     private lateinit var subBtn: Button
@@ -63,7 +67,9 @@ class FragmentA : Fragment(), View.OnClickListener {
             resultView.visibility = View.VISIBLE
 
             resultView.text = arguments?.getString(resultText)
-        } else if(savedInstanceState != null && savedInstanceState.getBoolean(isResultsCurrentlyVisible)) {
+        } else if(savedInstanceState != null && savedInstanceState.getBoolean(
+                isResultsCurrentlyVisible
+            )) {
             showHistory()
         }
         if(savedInstanceState != null && savedInstanceState.getBoolean("isShowingDialog")) {
@@ -113,11 +119,11 @@ class FragmentA : Fragment(), View.OnClickListener {
 
         var c = 1
 
-        for (result in MainActivity.results) {
+        for (result in resultsModifier.getResults()) {
 
 
              resultChild = layoutInflater.inflate(
-                R.layout.result_layout,
+                 R.layout.result_layout,
                 dynamicResultContainer,
                 false
             )
@@ -158,7 +164,7 @@ class FragmentA : Fragment(), View.OnClickListener {
             }
             historyBtn -> {
 
-                if(MainActivity.results.isNotEmpty()) {
+                if(resultsModifier.getResults().isNotEmpty()) {
                     showHistory()
                 } else {
                     Toast.makeText(context, "History is Empty", Toast.LENGTH_SHORT).show()
@@ -201,7 +207,7 @@ class FragmentA : Fragment(), View.OnClickListener {
         })
         alertDialogBuilder?.setPositiveButton("Clear" , DialogInterface.OnClickListener{ _: DialogInterface, _:Int ->
 
-            MainActivity.results.clear()
+            resultsModifier.clearResults()
             dynamicResultContainer.removeAllViews()
             clearBtn.visibility = View.GONE
             backBtn.visibility = View.GONE
@@ -212,7 +218,7 @@ class FragmentA : Fragment(), View.OnClickListener {
 
             Toast.makeText(activity, "Cleared Successfully", Toast.LENGTH_SHORT).show()
         })
-        alertDialogBuilder?.setOnDismissListener { isShowingDialog = false }
+        alertDialogBuilder?.setOnCancelListener { isShowingDialog = false }
 
         alertDialog = alertDialogBuilder?.create()
         alertDialog?.show()
